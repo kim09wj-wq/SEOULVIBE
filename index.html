@@ -124,7 +124,7 @@
 
       // 🖼️ 111.txt 원본 이미지로 완벽 복구
       const bgImages = {
-        hero: "https://cdn.midjourney.com/a071a222-3878-4725-ba91-a97638c98349/0_2.png",
+        hero: "https://cdn.midjourney.com/f6b4924d-121e-4dea-a870-8763882d1411/0_0.png",
         q1: "https://images.unsplash.com/photo-1617058866759-b1d5bdbe4203?auto=format&fit=crop&q=80",
         q2: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80",
         q3: "https://images.unsplash.com/photo-1548115184-bc6544d06a58?auto=format&fit=crop&q=80",
@@ -328,16 +328,44 @@
           </section>
 
           {/* Section 2: Persuasion */}
-          <section id="why-seoul" className="py-24 bg-white">
-            <div className="max-w-6xl mx-auto px-6">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-black mb-4">Seoul Seyahatiniz Artık Çok Kolay</h2>
-                <p className="text-slate-500 font-medium max-w-2xl mx-auto">Rehberimizde yer alan pratik bilgilerle dil bariyerini aşın, yerel halk gibi gezin ve en iyi festivalleri kaçırmayın.</p>
-              </div>
+      <section id="why-seoul" className="py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <span className="inline-block py-1 px-4 rounded-full bg-indigo-50 text-indigo-600 text-sm font-bold mb-4">
+              🇰🇷 Hayalinizdeki Seul Macerasına Hazır Mısınız?
+            </span>
+            <h2 className="text-3xl md:text-4xl font-black mb-4">Seoul Seyahatiniz Artık Çok Kolay</h2>
+            <p className="text-slate-500 font-medium max-w-2xl mx-auto">Rehberimizde yer alan pratik bilgilerle dil bariyerini aşın, yerel halk gibi gezin ve en iyi festivalleri kaçırmayın.</p>
+          </div>
 
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="bg-slate-50 rounded-3xl p-8 hover:shadow-xl transition-shadow border border-slate-100">
-                  <div className="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-6">
+          {/* ✨ 가이드북 썸네일 & 터키어 멘트 (2섹션 중앙 배치) ✨ */}
+          <div className="max-w-5xl mx-auto bg-gradient-to-br from-slate-50 to-indigo-50 p-8 md:p-12 rounded-[2rem] border border-indigo-100 shadow-xl mb-20 flex flex-col md:flex-row items-center gap-10">
+            <div className="w-full md:w-1/2 relative group">
+              {/* 이미지 네온 글로우 효과 */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 to-indigo-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+              <img 
+                src="https://glamorous-maroon-nxgw7smvee.edgeone.app/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-05-04%20100433.png" 
+                alt="Guidebook Preview" 
+                className="relative rounded-2xl shadow-lg w-full object-cover transform group-hover:scale-[1.02] transition-transform duration-300 border border-white/50"
+              />
+            </div>
+            <div className="w-full md:w-1/2 text-left">
+              <h3 className="text-2xl font-black text-slate-800 mb-4">Bu rehber size neler sunuyor?</h3>
+              <p className="text-slate-600 mb-4 font-medium leading-relaxed">
+                "Kore kültürü, nefes kesici manzaralar ve eşsiz K-Pop enerjisi sizi bekliyor. Ulaşım, yemek siparişi ve gizli kalmış mekanları keşfetmek için ihtiyacınız olan tüm sırlar bu kitapçıkta! Bu yaz Seul'de kendi unutulmaz hikayenizi yazın."
+              </p>
+              <p className="text-sm text-slate-400 mb-8 font-medium">
+                (한국의 문화, 아름다운 풍경, K-Pop 에너지가 기다립니다. 교통, 음식 주문, 숨겨진 명소 등 필요한 모든 꿀팁이 담겨 있습니다! 올여름 서울에서 잊지 못할 나만의 이야기를 써보세요.)
+              </p>
+              <button onClick={() => scrollTo('get-guidebook')} className="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold shadow-md hover:bg-indigo-600 transition-colors flex items-center">
+                Rehberi Almaya Başla <ArrowRight className="ml-2 w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-slate-50 rounded-3xl p-8 hover:shadow-xl transition-shadow border border-slate-100">
+              <div className="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-6">
                     <Star className="w-7 h-7" />
                   </div>
                   <h3 className="text-xl font-bold mb-3">En İyi Festivaller</h3>
@@ -367,15 +395,16 @@
           </section>
 
           {/* Section 3: Interactive Lead Form */}
-          <section id="get-guidebook" className="py-24 bg-slate-900 text-white relative">
-            <div className="max-w-3xl mx-auto px-6 relative z-10">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-black mb-4">Kişiye özel rehberinizi alın</h2>
-                <p className="text-slate-400">당신만을 위한 가이드를 받아가세요.</p>
-              </div>
+      <section id="get-guidebook" className="py-24 bg-slate-900 text-white relative">
+        <div className="max-w-3xl mx-auto px-6 relative z-10">
+          
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-black mb-4">Kişiye özel rehberinizi alın</h2>
+            <p className="text-slate-400">당신만을 위한 가이드를 받아가세요.</p>
+          </div>
 
-              {!isSubmitted ? (
-                <div className="bg-slate-800 rounded-3xl overflow-hidden shadow-2xl border border-slate-700 relative">
+          {!isSubmitted ? (
+            <div className="bg-slate-800 rounded-3xl overflow-hidden shadow-2xl border border-slate-700 relative mt-8">
                   <div className="absolute inset-0 opacity-20 transition-opacity duration-500">
                     <img src={bgImages[`q${currentStep}`] || bgImages.q5} alt="Background" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"></div>
@@ -488,7 +517,7 @@
                       </div>
                     )}
 
-                    {/* ✨ 신규 추가: Step 4 (나이 질문) ✨ */}
+                    {/* Step 4 (나이 질문) */}
                     {currentStep === 4 && (
                       <div>
                         <button onClick={() => setCurrentStep(3)} className="text-slate-400 hover:text-white mb-6 flex items-center text-sm"><ArrowLeft className="w-4 h-4 mr-1" /> Geri</button>
@@ -513,7 +542,7 @@
                       </div>
                     )}
 
-                    {/* ✨ Step 5 (성별 선택 & 이메일 입력 - 이름은 삭제됨) ✨ */}
+                    {/* Step 5 (성별 선택 & 이메일 입력 - 이름은 삭제됨) */}
                     {currentStep === 5 && (
                       <div>
                         <button onClick={() => setCurrentStep(4)} className="text-slate-400 hover:text-white mb-6 flex items-center text-sm"><ArrowLeft className="w-4 h-4 mr-1" /> Geri</button>
@@ -593,7 +622,7 @@
                 </div>
               ) : (
                 // Success Message (이름 제외)
-                <div className="bg-slate-800 rounded-3xl p-12 text-center border border-slate-700 shadow-2xl">
+                <div className="bg-slate-800 rounded-3xl p-12 text-center border border-slate-700 shadow-2xl mt-8">
                   <div className="w-20 h-20 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
                     <CheckCircle className="w-10 h-10" />
                   </div>
