@@ -124,7 +124,7 @@
 
       // 🖼️ 111.txt 원본 이미지로 완벽 복구
       const bgImages = {
-        hero: "https://cdn.midjourney.com/f6b4924d-121e-4dea-a870-8763882d1411/0_0.png",
+        hero: "https://cdn.midjourney.com/a071a222-3878-4725-ba91-a97638c98349/0_2.png",
         q1: "https://images.unsplash.com/photo-1617058866759-b1d5bdbe4203?auto=format&fit=crop&q=80",
         q2: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80",
         q3: "https://images.unsplash.com/photo-1548115184-bc6544d06a58?auto=format&fit=crop&q=80",
@@ -176,7 +176,7 @@
         
         // 성별 선택 여부 검증
         if (!formData.gender) {
-          setFormError('Lütfen cinsiyetinizi seçin. (성별을 seçin)');
+          setFormError('Lütfen cinsiyetinizi seçin. (성별을 선택해 주세요)');
           return;
         }
 
@@ -189,11 +189,11 @@
         setFormError('');
         setIsSubmitting(true);
 
-        // 구글 시트로 보낼 Payload
+        // 구글 시트로 보낼 Payload (이름 제외, 나이 추가, 성별 한국어로)
         const payload = {
           email: formData.email,
-          age: formData.age, 
-          gender_korean: koreanMapping[formData.gender],
+          age: formData.age, // ✨ 나이 추가
+          gender_korean: koreanMapping[formData.gender], // ✨ 한국어 성별 추가
           q1_korean: formData.q1 === 'Diğer' ? `기타: ${formData.q1_other}` : koreanMapping[formData.q1],
           q2_korean: koreanMapping[formData.q2],
           q3_korean: formData.q3 === 'Diğer' ? `기타: ${formData.q3_other}` : koreanMapping[formData.q3],
@@ -212,7 +212,7 @@
             });
           }
 
-          // --- [마케팅 태깅 및 중복 전환 방지 로직] ---
+          // --- [마케팅 태깅 및 중복 전환 방지 로직 (sessionStorage)] ---
           const alreadySubmitted = sessionStorage.getItem('form_submitted');
 
           if (!alreadySubmitted) {
@@ -221,8 +221,8 @@
               'event': 'SubmitForm',
               'formName': 'Seoul_Summer_Guide',
               'userEmail': formData.email,
-              'userAge': formData.age, 
-              'userGender': koreanMapping[formData.gender]
+              'userAge': formData.age, // GTM 나이 추가
+              'userGender': koreanMapping[formData.gender] // GTM 성별 추가
             });
 
             sessionStorage.setItem('form_submitted', 'true');
@@ -230,6 +230,7 @@
           } else {
             console.log('🚫 이미 전환이 측정된 세션입니다. 중복 발송 차단됨.');
           }
+          // -----------------------------------------------------------
           
           setTimeout(() => {
             setIsSubmitting(false);
@@ -310,7 +311,7 @@
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-indigo-300">Seninle Daha Güzel!</span>
               </h1>
               <p className="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto font-medium drop-shadow-md">
-                K-POP'tan festivallere, gizli rotalardan pratik uygulamalara kadar Seoul seyahatiniz için tüm sırlar bu rehberde!
+                Geleneksel festivallerden K-POP trendlerine, en iyi rotalardan pratik uygulamalara kadar Seoul'da ihtiyacın olan her şey bu rehberde!
               </p>
               <button 
                 onClick={() => scrollTo('get-guidebook')}
@@ -329,52 +330,52 @@
           {/* Section 2: Persuasion */}
           <section id="why-seoul" className="py-24 bg-white">
             <div className="max-w-6xl mx-auto px-6">
-              <div className="text-center mb-12 md:mb-16">
-                <span className="inline-block py-1 px-4 rounded-full bg-indigo-50 text-indigo-600 text-sm font-bold mb-4">
-                  🇰🇷 Seul Macerasına Hazır Mısınız?
-                </span>
+              <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-black mb-4">Seoul Seyahatiniz Artık Çok Kolay</h2>
-                <p className="text-slate-500 font-medium max-w-2xl mx-auto">Pratik bilgilerle dil bariyerini aşın ve yerel halk gibi gezin.</p>
+                <p className="text-slate-500 font-medium max-w-2xl mx-auto">Rehberimizde yer alan pratik bilgilerle dil bariyerini aşın, yerel halk gibi gezin ve en iyi festivalleri kaçırmayın.</p>
               </div>
 
-              {/* ✨ 가이드북 썸네일 이미지 복구 및 하단 3개 설명 카드 삭제 ✨ */}
-              <div className="max-w-5xl mx-auto bg-gradient-to-br from-slate-50 to-indigo-50 p-6 md:p-12 rounded-[2rem] border border-indigo-100 shadow-xl flex flex-col md:flex-row items-center gap-8 md:gap-10">
-                <div className="w-full md:w-1/2 relative group">
-                  {/* 이미지 네온 글로우 효과 */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 to-indigo-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                  <img 
-                    src="https://glamorous-maroon-nxgw7smvee.edgeone.app/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-05-04%20100433.png" 
-                    alt="Guidebook Preview" 
-                    className="relative rounded-2xl shadow-lg w-full object-cover transform group-hover:scale-[1.02] transition-transform duration-300 border border-white/50"
-                  />
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="bg-slate-50 rounded-3xl p-8 hover:shadow-xl transition-shadow border border-slate-100">
+                  <div className="w-14 h-14 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mb-6">
+                    <Star className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">En İyi Festivaller</h3>
+                  <p className="text-slate-600 mb-4">Lotus Fener Festivali, K-POP Konserleri ve Han Nehri Drone Gösterileri gibi kaçırılmaması gereken etkinlikler.</p>
+                  <div className="text-xs text-slate-400 font-mono bg-white p-2 rounded">📍 Jung-gu, Gangnam, Jongno</div>
                 </div>
-                <div className="w-full md:w-1/2 text-left">
-                  <h3 className="text-2xl font-black text-slate-800 mb-3">Bu rehber size neler sunuyor?</h3>
-                  <p className="text-slate-600 mb-3 font-medium leading-relaxed">
-                    "Ulaşım, yemek ve gizli mekanlar... Bu yaz Seul'de unutulmaz bir hikaye yazmanız için gereken tüm sırlar bu kitapçıkta!"
-                  </p>
-                  <p className="text-xs md:text-sm text-slate-400 mb-6 font-medium">
-                    (교통, 맛집, 숨겨진 명소까지! 서울에서의 완벽한 휴가를 위한 모든 꿀팁이 담겨 있습니다.)
-                  </p>
-                  <button onClick={() => scrollTo('get-guidebook')} className="w-full md:w-auto bg-slate-900 text-white px-6 py-3 rounded-xl font-bold shadow-md hover:bg-indigo-600 transition-colors flex items-center justify-center">
-                    Rehberi Almaya Başla <ArrowRight className="ml-2 w-4 h-4" />
-                  </button>
+
+                <div className="bg-slate-50 rounded-3xl p-8 hover:shadow-xl transition-shadow border border-slate-100">
+                  <div className="w-14 h-14 bg-pink-100 text-pink-600 rounded-2xl flex items-center justify-center mb-6">
+                    <Smartphone className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">Gerekli Uygulamalar</h3>
+                  <p className="text-slate-600 mb-4">Naver Map ile kolay ulaşım, Papago ile anında menü çevirisi ve Kakao T ile sorunsuz taksi çağırma rehberi.</p>
+                  <div className="text-xs text-slate-400 font-mono bg-white p-2 rounded">📱 Adım adım kullanım kılavuzu</div>
+                </div>
+
+                <div className="bg-slate-50 rounded-3xl p-8 hover:shadow-xl transition-shadow border border-slate-100">
+                  <div className="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mb-6">
+                    <MapIcon className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">Hayatta Kalma Korecesi</h3>
+                  <p className="text-slate-600 mb-4">Restoranda sipariş verirken, alışveriş yaparken veya yol sorarken personelle anında iletişim kurmanızı sağlayacak ifadeler.</p>
+                  <div className="text-xs text-slate-400 font-mono bg-white p-2 rounded">🗣️ Okunuşları ile birlikte</div>
                 </div>
               </div>
             </div>
           </section>
 
           {/* Section 3: Interactive Lead Form */}
-          <section id="get-guidebook" className="py-20 md:py-24 bg-slate-900 text-white relative">
+          <section id="get-guidebook" className="py-24 bg-slate-900 text-white relative">
             <div className="max-w-3xl mx-auto px-6 relative z-10">
-              
-              <div className="text-center mb-10">
-                <h2 className="text-3xl md:text-4xl font-black mb-2">Kişiye özel rehberinizi alın</h2>
-                <p className="text-sm md:text-base text-slate-400">당신만을 위한 가이드를 받아가세요.</p>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-black mb-4">Kişiye özel rehberinizi alın</h2>
+                <p className="text-slate-400">당신만을 위한 가이드를 받아가세요.</p>
               </div>
 
               {!isSubmitted ? (
-                <div className="bg-slate-800 rounded-3xl overflow-hidden shadow-2xl border border-slate-700 relative mt-8">
+                <div className="bg-slate-800 rounded-3xl overflow-hidden shadow-2xl border border-slate-700 relative">
                   <div className="absolute inset-0 opacity-20 transition-opacity duration-500">
                     <img src={bgImages[`q${currentStep}`] || bgImages.q5} alt="Background" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"></div>
@@ -487,7 +488,7 @@
                       </div>
                     )}
 
-                    {/* Step 4 (나이 질문) */}
+                    {/* ✨ 신규 추가: Step 4 (나이 질문) ✨ */}
                     {currentStep === 4 && (
                       <div>
                         <button onClick={() => setCurrentStep(3)} className="text-slate-400 hover:text-white mb-6 flex items-center text-sm"><ArrowLeft className="w-4 h-4 mr-1" /> Geri</button>
@@ -512,18 +513,22 @@
                       </div>
                     )}
 
-                    {/* Step 5 (성별 선택 & 이메일 입력 - 이름은 삭제됨) */}
+                    {/* ✨ Step 5 (성별 선택 & 이메일 입력 - 이름은 삭제됨) ✨ */}
                     {currentStep === 5 && (
-                      <div className="animate-fade-in">
+                      <div>
                         <button onClick={() => setCurrentStep(4)} className="text-slate-400 hover:text-white mb-6 flex items-center text-sm"><ArrowLeft className="w-4 h-4 mr-1" /> Geri</button>
                         
                         <div className="text-center mb-8">
-                          <h3 className="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-indigo-400 mb-2">Harika! Son bir adım.</h3>
-                          <p className="text-sm md:text-base text-slate-300">Rehberi almak için bilgilerinizi girin.</p>
-                          <p className="text-slate-400 text-xs mt-1">가이드북을 받을 정보를 입력해 주세요.</p>
+                          <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-indigo-400 mb-2">Harika!</h3>
+                          <p className="text-xl font-bold mb-1">Sizin için mükemmel Seul rehberini hazırladık.</p>
+                          <p className="text-slate-400 text-xs mb-4">완벽합니다! 당신을 위한 서울 가이드북이 준비되었습니다.</p>
+                          
+                          <p className="text-lg text-slate-200">Rehberi almak için bilgilerinizi girin.</p>
+                          <p className="text-slate-400 text-xs">가이드북을 받을 정보를 입력해 주세요.</p>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                          
                           {/* 성별 선택 영역 */}
                           <div>
                             <label className="block text-sm font-bold text-slate-300 mb-2">Cinsiyet (성별)</label>
@@ -588,19 +593,19 @@
                 </div>
               ) : (
                 // Success Message (이름 제외)
-                <div className="bg-slate-800 rounded-3xl p-8 md:p-12 text-center border border-slate-700 shadow-2xl mt-8 animate-fade-in">
-                  <div className="w-16 h-16 md:w-20 md:h-20 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="w-8 h-8 md:w-10 md:h-10" />
+                <div className="bg-slate-800 rounded-3xl p-12 text-center border border-slate-700 shadow-2xl">
+                  <div className="w-20 h-20 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle className="w-10 h-10" />
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-black mb-3">Teşekkürler!</h3>
-                  <p className="text-base md:text-xl text-slate-300 mb-2">Rehberiniz <strong>{formData.email}</strong> adresine gönderildi.</p>
-                  <p className="text-sm md:text-base text-slate-500 mb-8">Lütfen e-posta kutunuzu kontrol edin.</p>
+                  <h3 className="text-3xl font-black mb-4">Teşekkürler!</h3>
+                  <p className="text-xl text-slate-300 mb-2">Rehberiniz <strong>{formData.email}</strong> adresine gönderildi.</p>
+                  <p className="text-slate-500 mb-8">Lütfen e-posta kutunuzu (ve spam klasörünü) kontrol edin.</p>
                   
-                  <div className="bg-slate-900/50 p-5 md:p-6 rounded-2xl inline-block text-left border border-slate-700">
-                    <p className="text-xs md:text-sm text-slate-400 mb-4 text-center">Daha fazla ipucu için bizi takip edin!</p>
+                  <div className="bg-slate-900/50 p-6 rounded-2xl inline-block text-left border border-slate-700">
+                    <p className="text-sm text-slate-400 mb-4 text-center">Bizi sosyal medyadan takip ederek daha fazla ipucu alın!</p>
                     <div className="flex justify-center space-x-4">
-                      <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 text-white rounded-full flex items-center justify-center hover:opacity-90 transition-opacity">
-                        <Instagram className="w-5 h-5 md:w-6 md:h-6" />
+                      <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-12 h-12 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 text-white rounded-full flex items-center justify-center hover:opacity-90 transition-opacity">
+                        <Instagram className="w-6 h-6" />
                       </a>
                     </div>
                   </div>
@@ -610,17 +615,17 @@
           </section>
 
           {/* Section 4: Viral Loop / Share */}
-          <section id="share" className="py-20 md:py-24 bg-white border-t border-slate-100 relative">
+          <section id="share" className="py-24 bg-white border-t border-slate-100 relative">
             <div className="max-w-4xl mx-auto px-6 text-center">
-              <div className="w-14 h-14 md:w-16 md:h-16 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
-                <Share2 className="w-7 h-7 md:w-8 md:h-8" />
+              <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+                <Share2 className="w-8 h-8" />
               </div>
-              <h2 className="text-2xl md:text-4xl font-black mb-4">Arkadaşlarınla Paylaş!</h2>
-              <p className="text-base md:text-lg text-slate-500 mb-8 max-w-2xl mx-auto">
-                Kore'ye birlikte gitmek istediğin arkadaşınla paylaş ve seyahat planlarına hemen başlayın.
+              <h2 className="text-3xl md:text-4xl font-black mb-6">Bu rehber tek başına gezmek için fazla iyi!</h2>
+              <p className="text-lg text-slate-500 mb-10 max-w-2xl mx-auto">
+                Kore'ye birlikte gitmek istediğin en iyi arkadaşınla paylaş ve seyahat planlarına hemen başlayın.
               </p>
               
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-3 md:gap-4">
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
                 {/* 왓츠앱 공유 */}
                 <a 
                   href={`whatsapp://send?text=${whatsappMsg}`}
